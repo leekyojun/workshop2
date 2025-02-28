@@ -1,20 +1,134 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yoon's Phonics Builder</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>DALL-E 로컬 테스트</title>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F6F6F7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+      color: #454B58;
+      margin: 0;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .input-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    #prompt {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #E3E3E3;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    #generateBtn {
+      background-color: #003DF5;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 0 16px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #generateBtn:hover {
+      opacity: 0.9;
+    }
+
+    #result {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-top: 10px;
+      max-width: 100%;
+    }
+
+    #result img {
+      max-width: 100%;
+      border: 1px solid #E3E3E3;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    /* 반응형 */
+    @media (max-width: 480px) {
+      .input-container {
+        flex-direction: column;
+      }
+      #prompt, #generateBtn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-    <img src="logo.png" alt="Logo" class="logo">
-    <h1>Yoon's Phonics Builder</h1>
-    <div class="flipbook-container">
-        <div class="slot-container" id="slotContainer"></div>
-        <div class="result" id="wordResult">-</div>
-        <button class="listen-button" id="listenButton" disabled>Listen</button>
-    </div>
-    <div class="copyright">© Yoon's English School. All rights reserved.</div>
-    <script src="script.js"></script> 
+  <h1>DALL-E 이미지 생성 (로컬 테스트)</h1>
+
+  <div class="input-container">
+    <input type="text" id="prompt" placeholder="예: A panda eating bamboo" />
+    <button id="generateBtn">생성</button>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    document.getElementById("generateBtn").addEventListener("click", async () => {
+      const prompt = document.getElementById("prompt").value.trim();
+      if (!prompt) {
+        alert("프롬프트를 입력해주세요.");
+        return;
+      }
+
+      try {
+        // Cloudflare Worker의 엔드포인트로 요청을 보냅니다.
+        // (예: "https://<your-worker-subdomain>.workers.dev/generate")
+        // 또는 로컬 테스트를 위해 로컬 서버에 프록시 설정이 되어있다면 "/api/generate" 등으로 사용 가능
+        const response = await fetch("https://late-breeze-2f4a.kyojun75.workers.dev/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ prompt })
+        });
+
+        if (!response.ok) {
+          throw new Error("이미지 생성 실패: " + response.statusText);
+        }
+
+        const data = await response.json();
+        const imageUrl = data.url; // Worker에서 반환한 최종 이미지 URL
+
+        // 결과 표시 영역
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = ""; // 이전 결과 초기화
+
+        const imgElem = document.createElement("img");
+        imgElem.src = imageUrl;
+        imgElem.alt = prompt;
+        resultDiv.appendChild(imgElem);
+
+      } catch (err) {
+        console.error(err);
+        alert("이미지 생성 중 오류가 발생했습니다. 콘솔을 확인하세요.");
+      }
+    });
+  </script>
 </body>
 </html>
