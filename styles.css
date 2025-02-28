@@ -1,0 +1,151 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+body {
+    font-family: 'Pretendard', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: radial-gradient(103.88% 58.43% at 56.74% 50%, #0085FF 0%, #003465 100%);
+}
+
+h1 {
+    color: #FFF;
+    font-size: clamp(30px, 4vw, 65px);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 4vh;
+}
+
+.logo {
+    position: absolute;
+    top: 2vw;
+    left: 3%;
+    width: 9vw;
+    min-width: 120px;
+}
+
+.flipbook-container {
+    width: 82vw;
+    max-width: 1200px;
+    border-radius: 28px;
+    box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.25);
+    background: rgba(194, 211, 238, 0.87);
+    backdrop-filter: blur(10px);
+    padding: 3vw 5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.slot-container {
+    display: flex;
+    align-items: center; 
+    gap: 1vw;
+    justify-content: center;
+    margin-bottom: 2vh;
+}
+
+.slots-wrapper {
+    display: flex;
+    gap: 2vw; 
+}
+
+select {
+    font-family: 'Pretendard', Arial, sans-serif;
+    padding: 1vh 0.2vw;
+    font-size: 4vw;
+    border-radius: 1vw;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
+    font-weight: bold;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    text-align: center;
+    text-align-last: center;
+    outline: none;
+}
+
+select:focus {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2), 0 0 0 3px #145da1;
+}
+
+.result {
+    font-size: 13vw;
+    font-weight: bold;
+    color: #FFF;
+    text-align: center;
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.copyright {
+    color: #FFF;
+    font-size: clamp(12px, 1vw, 18px);
+    margin-top: 1vh;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.listen-button {
+    font-family: 'Pretendard', Arial, sans-serif;
+    font-size: clamp(18px, 2vw, 40px);
+    margin-top: 1vh;
+    padding: 1vh 2vw;
+    background-color: #1d24a9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.listen-button:disabled {
+    background-color: #888;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.listen-button:hover:enabled {
+    background-color: #3a42f4;
+}
+
+.listen-button:active:enabled {
+    transform: scale(0.95);
+}
+.control-button {
+    width: clamp(20px, 2.5vw, 40px);
+    height: clamp(20px, 2.5vw, 40px);
+    padding: 0; 
+    font-size: clamp(16px, 3vw, 24px);
+    background-color: #1d24a9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.control-button:hover {
+    background-color: #3a42f4;
+}
+
+.control-button:active {
+    transform: scale(0.95);
+}
+
+.control-button:disabled {
+    background-color: #a1a1a1; 
+    color: #e0e0e0;           
+    cursor: not-allowed;      
+    transform: none;          
+    box-shadow: none;         
+}
